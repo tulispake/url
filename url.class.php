@@ -584,8 +584,8 @@ class URL
 			$url = self::normalize($url);
 
 			// Remove unwanted characters
-			$url = preg_replace('/[^a-zA-Z0-9$\-_.+!*();:@=&%20-]/', '', $url);
-
+			$url = preg_replace('/[^a-zA-Z0-9$\-_.+!*();:@=&%20\/-]/', '', $url);
+			
 			// Convert space to (-)
 			$url = str_replace(' ', '-', $url);
 
@@ -678,7 +678,6 @@ class URL
 
 		// Convert to lowercase
 		$var = strtolower($var);
-
 		return $var;
 	}
 
@@ -689,6 +688,17 @@ class URL
 			$string = preg_replace('/[^A-Za-z0-9\-~\/\\\?\:\@\#\[\]\=\&\+\$\,\.\_\!\*\'\(\)]/', '', $string); // allow certain characters in URL
 			$string = strtr($string, array(
 				' ' => '-', // replace space with dash
+				'!' => '-', // replace exclamation with dash
+				',' => '-', // replace comma with dash
+				'\'' => '-', // replace quote with dash
+				'+' => '-', // replace plus with dash
+				'~' => '-', // replace tilde with dash
+				'(' => '-', // replace bracket with dash
+				')' => '-', // replace bracket with dash
+				'[' => '-', // replace bracket with dash
+				']' => '-', // replace bracket with dash
+				'*' => '-', // replace Asterisk with dash
+				'^' => '-', // replace Caret with dash
 			));
 			$string = preg_replace('/-+/', '-', $string); // remove duplicate dashes
 			$string = trim($string, '-'); // trim dashes from beginning and end of string
@@ -696,5 +706,6 @@ class URL
 		}
 		return $string;
 	}
+
 
 }
